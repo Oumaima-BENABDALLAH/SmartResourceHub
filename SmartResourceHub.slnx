@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/Booking.API/">
+    <Project Path="Booking.API/Booking.API/Booking.API.csproj" />
+    <Project Path="Booking.API/Booking.Application/Booking.Application.csproj" />
+    <Project Path="Booking.API/Booking.Domain/Booking.Domain.csproj" />
+    <Project Path="Booking.API/Booking.Infrastructure/Booking.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Catalog.API/">
+    <Project Path="Catalog.API/Catalog.API/Catalog.API.csproj" />
+    <Project Path="Catalog.API/Catalog.Application/Catalog.Application.csproj" />
+    <Project Path="Catalog.API/Catalog.Domain/Catalog.Domain.csproj" />
+    <Project Path="Catalog.API/Catalog.Infrastructure/Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Gateway.API/">
+    <Project Path="Gateway.API/Gateway.API/Gateway.API.csproj" />
+  </Folder>
+  <Folder Name="/Identity.API/">
+    <Project Path="Identity.API/Identity.API/Identity.API.csproj" />
+    <Project Path="Identity.API/Identity.Application/Identity.Application.csproj" />
+    <Project Path="Identity.API/Identity.Domain/Identity.Domain.csproj" />
+    <Project Path="Identity.API/Identity.Infrastructure/Identity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Notification.API/">
+    <Project Path="Notification.API/Notification.API/Notification.API.csproj" />
+    <Project Path="Notification.API/Notification.Application/Notification.Application.csproj" />
+    <Project Path="Notification.API/Notification.Domain/Notification.Domain.csproj" />
+    <Project Path="Notification.API/Notification.Infrastructure/Notification.Infrastructure.csproj" />
+  </Folder>
+</Solution>
