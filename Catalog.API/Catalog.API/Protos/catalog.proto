@@ -1,0 +1,48 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Catalog.API.Protos";
+
+package catalog;
+service CatalogService {
+  // Récupère une ressource par son Id
+  rpc GetResource (GetResourceRequest) returns (ResourceResponse);
+
+  // Vérifie si une ressource est disponible
+  rpc CheckAvailability (CheckAvailabilityRequest) returns (AvailabilityResponse);
+
+  // Liste toutes les ressources d'un type donné
+  rpc ListResourcesByType (ListResourcesByTypeRequest) returns (ResourceListResponse);
+}
+
+message GetResourceRequest {
+  string id = 1;
+}
+
+message CheckAvailabilityRequest {
+  string resource_id = 1;
+}
+
+message AvailabilityResponse {
+  bool is_available = 1;
+  string resource_name = 2;
+}
+
+message ListResourcesByTypeRequest {
+  int32 type = 1;
+}
+
+message ResourceResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4;
+  int32 capacity = 5;
+  string building = 6;
+  string floor = 7;
+  string room_number = 8;
+  bool is_available = 9;
+}
+
+message ResourceListResponse {
+  repeated ResourceResponse resources = 1;
+}
