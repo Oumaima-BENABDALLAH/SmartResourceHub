@@ -8,10 +8,17 @@ using System.Text;
 
 namespace Catalog.Application
 {
+
+
+    // Ce fichier est une classe d'extension qui regroupe et enregistre automatiquement 
+    // tous les services de la couche Application (MediatR, AutoMapper, validateurs) 
+    // dans le catalogue .NET, permettant ainsi de garder le fichier Program.cs propre.
     public static  class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            // Récupère le projet compilé (l'Assembly) actuel 
+
             var assembly = typeof(DependencyInjection).Assembly;
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));

@@ -8,7 +8,8 @@ using System.Text;
 
 namespace Catalog.Domain.Entities
 {
-    public  class Resource : BaseEntity
+    public  class Resource : BaseEntity  ///Resourcer représente l'entité Resource (Aggregate Root) dans le microservice Catalog.
+                                         /// Encapsule les règles métiers et garantit l'intégrité des données associées.
     {
         public string Name { get; private set; } = default!;
         public string Description { get; private set; } = string.Empty;
@@ -17,8 +18,10 @@ namespace Catalog.Domain.Entities
         public ResourceLocation Location { get; private set; } = default!;
         public bool IsAvailable { get; private set; } = true;
 
+        // Constructeur privé requis par Entity Framework Core pour la matérialisation des entités, tout en empêchant une instanciation libre depuis l'extérieur (respect du DDD).
         private Resource () { }
 
+        //Create () Factory Method : Valide les invariants métiers et crée une nouvelle instance valide de Resource.
         public static Resource Create(
                              string name,
                              string description,
@@ -43,6 +46,8 @@ namespace Catalog.Domain.Entities
             };
 
         }
+
+        //Update () Met à jour les informations de la ressource après validation des règles métiers.
         public void Update(string name, string description, int capacity, ResourceLocation location)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new DomainException("Resource name cannot be empty.");
@@ -57,6 +62,7 @@ namespace Catalog.Domain.Entities
 
         }
 
+        //MarkAsAvailable () et MarkAsUnavailable () : Modifient l'état de disponibilité de la ressource et mettent à jour le timestamp UpdatedAt.
         public void MarkAsAvailable()
         {
             IsAvailable = true;

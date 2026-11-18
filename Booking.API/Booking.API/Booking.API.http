@@ -1,6 +1,7 @@
+
 @Booking.API_HostAddress = http://localhost:5190
 
 GET {{Booking.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
-###
+#### Fichier de test d'API intégré : permet d'envoyer des requêtes HTTP (GET, POST, etc.) directement depuis l'éditeur de code pour tester les endpoints.

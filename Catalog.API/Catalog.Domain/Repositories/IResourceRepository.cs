@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Catalog.Domain.Repositories
 {
+    //Définit le contrat du Repository pour l'entité Resource (Aggregate Root).
     public interface  IResourceRepository
     {
         Task <Resource?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);

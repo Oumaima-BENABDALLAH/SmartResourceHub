@@ -1,0 +1,34 @@
+﻿@gatewayUrl = http://localhost:5112
+
+### 1. Login via Gateway → redirige vers Identity.API
+POST {{gatewayUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "oumaima@test.com",
+  "password": "Test1234!"
+}
+
+### 2. Récupérer les ressources via Gateway → redirige vers Catalog.API
+GET {{gatewayUrl}}/api/resources
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZmU5ODViNC03ODQ0LTQ4NWItYmQzNi1kZGI4NDU3M2JlYTciLCJlbWFpbCI6Im91bWFpbWFAdGVzdC5jb20iLCJnaXZlbl9uYW1lIjoiT3VtYWltYSIsImZhbWlseV9uYW1lIjoiQmVuIiwianRpIjoiMjI1N2M1ODItMjkyNy00YTg4LTliOTktYTg3ZjVjNjkyNWJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTc4Mjg0MjUwMywiaXNzIjoiU21hcnRSZXNvdXJjZUh1Yi5JZGVudGl0eSIsImF1ZCI6IlNtYXJ0UmVzb3VyY2VIdWIuQ2xpZW50In0.VqFFRTaJmBavnO9XKS3rqm_W2cNqkMJAnS82VwMNJb4
+
+### 3. Créer une réservation via Gateway → redirige vers Booking.API
+@timeout=60000
+POST {{gatewayUrl}}/api/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZmU5ODViNC03ODQ0LTQ4NWItYmQzNi1kZGI4NDU3M2JlYTciLCJlbWFpbCI6Im91bWFpbWFAdGVzdC5jb20iLCJnaXZlbl9uYW1lIjoiT3VtYWltYSIsImZhbWlseV9uYW1lIjoiQmVuIiwianRpIjoiMjI1N2M1ODItMjkyNy00YTg4LTliOTktYTg3ZjVjNjkyNWJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTc4Mjg0MjUwMywiaXNzIjoiU21hcnRSZXNvdXJjZUh1Yi5JZGVudGl0eSIsImF1ZCI6IlNtYXJ0UmVzb3VyY2VIdWIuQ2xpZW50In0.VqFFRTaJmBavnO9XKS3rqm_W2cNqkMJAnS82VwMNJb4
+
+{
+  "resourceId": "646fb5a1-dc27-48d3-aa4c-996ed422c640",
+  "userId": "afe985b4-7844-485b-bd36-ddb84573bea7",
+  "startTime": "2026-07-01T10:00:00Z",
+  "endTime": "2026-07-01T12:00:00Z"
+}
+
+### 4. Tester Rate Limiting — envoyer 101 fois la même requête
+GET {{gatewayUrl}}/api/resources
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZmU5ODViNC03ODQ0LTQ4NWItYmQzNi1kZGI4NDU3M2JlYTciLCJlbWFpbCI6Im91bWFpbWFAdGVzdC5jb20iLCJnaXZlbl9uYW1lIjoiT3VtYWltYSIsImZhbWlseV9uYW1lIjoiQmVuIiwianRpIjoiMjI1N2M1ODItMjkyNy00YTg4LTliOTktYTg3ZjVjNjkyNWJlIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTc4Mjg0MjUwMywiaXNzIjoiU21hcnRSZXNvdXJjZUh1Yi5JZGVudGl0eSIsImF1ZCI6IlNtYXJ0UmVzb3VyY2VIdWIuQ2xpZW50In0.VqFFRTaJmBavnO9XKS3rqm_W2cNqkMJAnS82VwMNJb4
+
+### 5. Tester sans token → doit retourner 401
+GET {{gatewayUrl}}/api/resources

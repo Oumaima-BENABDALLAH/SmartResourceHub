@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Catalog.Domain.Exceptions
 {
-    public  class DomainException : Exception
+    //DomainException : Exception personnalisée au sein de la couche Domain. Elle est levée lorsqu'une action enfreint la logique métier.
+    public class DomainException : Exception
     {
         public DomainException(String message) : base(message) { }
     }

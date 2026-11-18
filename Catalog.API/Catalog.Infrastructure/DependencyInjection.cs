@@ -11,12 +11,16 @@ using System.Text;
 
 namespace Catalog.Infrastructure
 {
+    //Configuration centralisée de l'injection de dépendances pour cette couche. Déclarée en 'static' pour permettre l'utilisation de méthodes d'extension.
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
             IConfiguration configuration)
         {
+
+
+            //  EF Core : enregistre le contexte de base de données CatalogDbContext pour utiliser SQL Server.
             services.AddDbContext<CatalogDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("CatalogDb"),

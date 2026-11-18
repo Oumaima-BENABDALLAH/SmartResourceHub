@@ -6,6 +6,8 @@ using System.Text;
 
 namespace Catalog.Application.Common.Behaviors
 {
+    // Intercepteur (Pipeline Behavior) MediatR qui exécute automatiquement tous les validateurs FluentValidation et bloque la requête si une donnée est incorrecte.
+
     public sealed class ValidationBehavior<TRequest, TReponse>
         : IPipelineBehavior<TRequest, TReponse>
          where TRequest : notnull
@@ -15,7 +17,11 @@ namespace Catalog.Application.Common.Behaviors
         public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators) => _validators = validators;
         public async Task<TReponse> Handle(TRequest request, RequestHandlerDelegate<TReponse> next, CancellationToken cancellationToken)
         {
+            //À s'arrêter s'il n'y a aucun validateur FluentValidation enregistré pour la requête en cours, en laissant passer le flux directement vers le Handler suivant (next()).
             if (!_validators.Any()) return await next();
+
+            //ValidationContext<TRequest> encapsule l'objet requête (request) entrant pour fournir le contexte nécessaire aux validateurs FluentValidation
+            //afin qu'ils puissent analyser ses propriétés.
             var _context = new ValidationContext<TRequest>(request);
 
             var errors = _validators.Select(v=> v.Validate(_context))

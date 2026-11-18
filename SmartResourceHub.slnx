@@ -22,8 +22,17 @@
   </Folder>
   <Folder Name="/Notification.API/">
     <Project Path="Notification.API/Notification.API/Notification.API.csproj" />
-    <Project Path="Notification.API/Notification.Application/Notification.Application.csproj" />
     <Project Path="Notification.API/Notification.Domain/Notification.Domain.csproj" />
     <Project Path="Notification.API/Notification.Infrastructure/Notification.Infrastructure.csproj" />
+    <Project Path="Notification.API/Notification.Worker/Notification.Worker.csproj" />
+  </Folder>
+  <Folder Name="/Payment.API/">
+    <Project Path="Payment.API/Payment.API/Payment.API.csproj" />
+    <Project Path="Payment.API/Payment.Application/Payment.Application.csproj" />
+    <Project Path="Payment.API/Payment.Domain/Payment.Domain.csproj" />
+    <Project Path="Payment.API/Payment.Infrastructure/Payment.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Identity.UnitTests/Identity.UnitTests.csproj" />
   </Folder>
 </Solution>

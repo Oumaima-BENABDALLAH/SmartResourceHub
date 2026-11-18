@@ -22,6 +22,7 @@ namespace Catalog.Infrastructure.Persistence.Repositories
           => await _context.Resources.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
 
+        //AsNoTracking() : Désactive le suivi d'Entity Framework pour économiser de la mémoire et accélérer l'affichage fonctionne seulement sur read ( lire une liste)
 
         public async Task<IReadOnlyList<Resource>> GetByTypeAsync(ResourceType type, CancellationToken cancellationToken = default)
         => await _context.Resources
@@ -54,15 +55,19 @@ namespace Catalog.Infrastructure.Persistence.Repositories
                 _context.Resources.Remove(resource);
             }
         }
-          
 
+        //Elle vérifie si une ressource avec un identifiant (Guid id) spécifique existe déjà dans la base de données.
         public async  Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
+         // AnyAsync : Vérifie efficacement l'existence d'un enregistrement en envoyant une requête SQL optimisée (ex: EXISTS) sans charger l'objet en mémoire.
          => await _context.Resources.AnyAsync(r => r.Id == id, cancellationToken);
 
 
+        //Elle indique à Entity Framework qu'une ressource existante a été modifiée et que ses changements devront être enregistrés en base de données.
         public Task UpdateAsync(Resource resource, CancellationToken cancellationToken = default)
         {
             _context.Resources.Update(resource);
+            // Task.CompletedTask : Retourne une tâche déjà terminée, utile ici car la méthode Update marque l'entité en mémoire (via le Change Tracker) de façon synchrone,
+            // les modifications ne seront réellement envoyées à la base de données qu'au moment où le SaveChangesAsync() de l'unité de travail / UnitOfWork sera appelé.
             return Task.CompletedTask;
         }
     }

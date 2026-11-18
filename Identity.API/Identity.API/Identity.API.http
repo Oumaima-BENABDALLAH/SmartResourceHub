@@ -1,6 +1,38 @@
-@Identity.API_HostAddress = http://localhost:5251
+﻿@identityUrl = http://localhost:7001
 
-GET {{Identity.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Register
+POST {{identityUrl}}/api/auth/register
+Content-Type: application/json
 
-###
+{
+  "firstName": "Oumaima",
+  "lastName": "Ben",
+  "email": "oumaima@test.com",
+  "password": "Test1234!"
+}
+
+### 2. Login → copiez accessToken + refreshToken + id
+POST {{identityUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "oumaima@test.com",
+  "password": "Test1234!"
+}
+
+### 3. Me 
+GET {{identityUrl}}/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZmU5ODViNC03ODQ0LTQ4NWItYmQzNi1kZGI4NDU3M2JlYTciLCJlbWFpbCI6Im91bWFpbWFAdGVzdC5jb20iLCJnaXZlbl9uYW1lIjoiT3VtYWltYSIsImZhbWlseV9uYW1lIjoiQmVuIiwianRpIjoiMzRmYzI1ZmItMTMyOC00MWUzLWE3NzYtMzE3MDhiNTc4MjcyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTc4MjY3MjMyNSwiaXNzIjoiU21hcnRSZXNvdXJjZUh1Yi5JZGVudGl0eSIsImF1ZCI6IlNtYXJ0UmVzb3VyY2VIdWIuQ2xpZW50In0.S7Lv1UJk0OgHm4VA8m5gN3qVYb24Zpvv1KMXQ2GvYdE
+
+### 4. Logout
+POST {{identityUrl}}/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZmU5ODViNC03ODQ0LTQ4NWItYmQzNi1kZGI4NDU3M2JlYTciLCJlbWFpbCI6Im91bWFpbWFAdGVzdC5jb20iLCJnaXZlbl9uYW1lIjoiT3VtYWltYSIsImZhbWlseV9uYW1lIjoiQmVuIiwianRpIjoiMzRmYzI1ZmItMTMyOC00MWUzLWE3NzYtMzE3MDhiNTc4MjcyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTc4MjY3MjMyNSwiaXNzIjoiU21hcnRSZXNvdXJjZUh1Yi5JZGVudGl0eSIsImF1ZCI6IlNtYXJ0UmVzb3VyY2VIdWIuQ2xpZW50In0.S7Lv1UJk0OgHm4VA8m5gN3qVYb24Zpvv1KMXQ2GvYdE
+
+### 5. Refresh
+POST {{identityUrl}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "userId": "afe985b4-7844-485b-bd36-ddb84573bea7",
+  "refreshToken": "EWdbS83Dt/eKWGAKLU4TYjDog0g8OQ6sZMY1W9Bmup+hbMJBGRHTJVeuZpQiVHBEv+Qh+05l+TfNDl96O+LwHQ=="
+}

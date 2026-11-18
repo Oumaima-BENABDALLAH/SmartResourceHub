@@ -28,7 +28,7 @@ namespace Catalog.API.Controllers
 
         public async  Task<ActionResult<IReadOnlySet<ResourceDto>>> GetAll(CancellationToken cancellationToken) {
 
-            var result = _mediator.Send(new GetAllResourcesQuery(), cancellationToken);
+            var result = await  _mediator.Send(new GetAllResourcesQuery(), cancellationToken);
             return Ok(result);
         }
 
@@ -39,7 +39,7 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<IReadOnlySet<ResourceDto>>> GetAvailable(CancellationToken cancellationToken)
         {
 
-            var result = _mediator.Send(new GetAvailableResourcesQuery(), cancellationToken);
+            var result = await _mediator.Send(new GetAvailableResourcesQuery(), cancellationToken);
             return Ok(result);
         }
 
@@ -52,7 +52,7 @@ namespace Catalog.API.Controllers
 
             try
             {
-                var result = _mediator.Send(new GetResourceByIdQuery(id), cancellationToken);
+                var result = await  _mediator.Send(new GetResourceByIdQuery(id), cancellationToken);
                 return Ok(result);
             }
             catch (ResourceNotFoundException ex)
@@ -80,7 +80,7 @@ namespace Catalog.API.Controllers
                      request.Floor,
                      request.RoomNumber );
 
-                var result = _mediator.Send(command, cancellationToken);
+                var result = await  _mediator.Send(command, cancellationToken);
 
                 return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
             }
@@ -134,14 +134,14 @@ namespace Catalog.API.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(typeof(ResourceDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResourceDto>> Delte(Guid id , CancellationToken cancellationToken)
+        public async Task<ActionResult<ResourceDto>> Delete(Guid id , CancellationToken cancellationToken)
         {
 
             try
             {
                 
 
-                var result = _mediator.Send(new DeleteResourceCommand (id), cancellationToken);
+                await _mediator.Send(new DeleteResourceCommand (id), cancellationToken);
 
                 return NoContent();
             }
